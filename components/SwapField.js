@@ -33,4 +33,6 @@ const SwapField = React.forwardRef(({ obj }, inputRef) => {
   }
 });
 
+SwapField.displayName = "SwapField";
+
 export default SwapField;
