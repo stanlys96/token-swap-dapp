@@ -13,7 +13,7 @@ import TransactionStatus from "./TransactionStatus";
 import toast, { Toaster } from "react-hot-toast";
 import { DEFAULT_VALUE, ETH } from "../utils/SupportedCoins";
 import { toEth, toWei } from "../utils/ether-utils";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 
 const SwapComponent = () => {
   const [srcToken, setSrcToken] = useState(ETH);
@@ -60,6 +60,7 @@ const SwapComponent = () => {
   const notifySuccess = () => toast.success("Transaction completed.");
 
   const { address } = useAccount();
+  const { chain, chains } = useNetwork();
 
   useEffect(() => {
     // Handling the text of the submit button
@@ -118,6 +119,7 @@ const SwapComponent = () => {
       </div>
 
       <button
+        disabled={!address || chain?.id !== 5}
         className={getSwapBtnClassName()}
         onClick={() => {
           if (swapBtnText === INCREASE_ALLOWANCE) handleIncreaseAllowance();
